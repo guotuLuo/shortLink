@@ -1,11 +1,11 @@
 package com.nageoffer.shortlink.admin.dao.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.nageoffer.shortlink.admin.common.convention.serialize.PhoneDesensitizationSerializer;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @TableName("t_user")
@@ -17,7 +17,7 @@ public class UserDO {
     /**
      *  姓名
      */
-    private String userName;
+    private String username;
     /**
      * 密码
      * */
@@ -41,13 +41,16 @@ public class UserDO {
     /**
      *  创建时间
      */
-    private Date createTime;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
     /**
      *  更新时间
      */
-    private Date updateTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
     /**
      *  删除软标签
      */
+    @TableField(fill = FieldFill.INSERT)
     private Integer delFlag;
 }

@@ -2,11 +2,11 @@ package com.nageoffer.shortlink.admin.controller;
 
 import com.nageoffer.shortlink.admin.common.convention.result.Result;
 import com.nageoffer.shortlink.admin.common.convention.result.Results;
+import com.nageoffer.shortlink.admin.dto.req.UserRequestDTO;
 import com.nageoffer.shortlink.admin.dto.resp.UserActualRespDTO;
 import com.nageoffer.shortlink.admin.dto.resp.UserRespDTO;
 import com.nageoffer.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.redisson.api.RBloomFilter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-    private final RBloomFilter<String> userRegisterCachePenetrationBloomFilter;
     /**
      * 根据用户名查询用户信息
      * @param username 用户名
@@ -42,7 +41,13 @@ public class UserController {
      * @return 返回布尔值
      */
     @GetMapping("/availableUsername")
-    public Result<Boolean> availableUserName(@RequestParam("username") String username){
-        return Results.success(userRegisterCachePenetrationBloomFilter.contains(username));
+    public Result<Boolean> isAvailableUserName(@RequestParam("username") String username){
+        return Results.success(userService.isAvailableUserName(username));
+    }
+
+    @PostMapping("/register")
+    public Result Register(@RequestBody UserRequestDTO requestDTO){
+        userService.register(requestDTO);
+        return Results.success();
     }
 }
