@@ -1,15 +1,14 @@
 package com.nageoffer.shortlink.admin.dao.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.nageoffer.shortlink.admin.common.datbase.BaseDO;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
-import java.time.LocalDateTime;
-
+@EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("t_user")
-public class UserDO {
+public class UserDO extends BaseDO {
     /**
      *  id
      */
@@ -38,19 +37,4 @@ public class UserDO {
      *  注销时间戳
      */
     private Long deleteTime;
-    /**
-     *  创建时间
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
-    /**
-     *  更新时间
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private LocalDateTime updateTime;
-    /**
-     *  删除软标签
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private Integer delFlag;
 }
