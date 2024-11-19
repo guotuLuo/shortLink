@@ -2,8 +2,11 @@ package com.nageoffer.shortlink.admin.controller;
 
 import com.nageoffer.shortlink.admin.common.convention.result.Result;
 import com.nageoffer.shortlink.admin.common.convention.result.Results;
-import com.nageoffer.shortlink.admin.dto.req.UserRequestDTO;
+import com.nageoffer.shortlink.admin.dto.req.UserLoginReqDTO;
+import com.nageoffer.shortlink.admin.dto.req.UserRegisterReqDTO;
+import com.nageoffer.shortlink.admin.dto.req.UserUpdateReqDTO;
 import com.nageoffer.shortlink.admin.dto.resp.UserActualRespDTO;
+import com.nageoffer.shortlink.admin.dto.resp.UserLoginRespDTO;
 import com.nageoffer.shortlink.admin.dto.resp.UserRespDTO;
 import com.nageoffer.shortlink.admin.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +39,7 @@ public class UserController {
         BeanUtils.copyProperties(userService.getByUserName(username), userActualRespDTO);
         return Results.success(userActualRespDTO);
     }
+
     /**
      * 查询用户名是否可用
      * @return 返回布尔值
@@ -45,9 +49,46 @@ public class UserController {
         return Results.success(userService.isAvailableUserName(username));
     }
 
+    /**
+     * 注册用户
+     */
     @PostMapping("/register")
-    public Result Register(@RequestBody UserRequestDTO requestDTO){
+    public Result register(@RequestBody UserRegisterReqDTO requestDTO){
         userService.register(requestDTO);
+        return Results.success();
+    }
+
+    /**
+     * 修改用户
+     */
+    @PutMapping("/update")
+    public Result update(@RequestBody UserUpdateReqDTO userUpdateReqDTO){
+        userService.update(userUpdateReqDTO);
+        return Results.success();
+    }
+
+    /**
+     * 用户登录
+     */
+    @PostMapping("/login")
+    public Result<UserLoginRespDTO> login(@RequestBody UserLoginReqDTO userLoginReqDTO){
+        return Results.success(userService.login(userLoginReqDTO));
+    }
+
+    /**
+     * 检查用户是否登录
+     */
+    @GetMapping("/has-login")
+    public Result<Boolean> login(@RequestParam("username") String username, @RequestParam("uuid") String uuid){
+        return Results.success(userService.checkLogin(username, uuid));
+    }
+
+    /**
+     * 用户注销
+     */
+    @PostMapping("/logout")
+    public Result logout(@RequestParam("username") String username, @RequestParam("uuid") String uuid){
+        userService.logout(username, uuid);
         return Results.success();
     }
 }
