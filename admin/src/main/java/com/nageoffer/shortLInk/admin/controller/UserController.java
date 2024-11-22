@@ -53,7 +53,7 @@ public class UserController {
      * 注册用户
      */
     @PostMapping("/register")
-    public Result register(@RequestBody UserRegisterReqDTO requestDTO){
+    public Result<Void> register(@RequestBody UserRegisterReqDTO requestDTO){
         userService.register(requestDTO);
         return Results.success();
     }
@@ -62,7 +62,7 @@ public class UserController {
      * 修改用户
      */
     @PutMapping("/update")
-    public Result update(@RequestBody UserUpdateReqDTO userUpdateReqDTO){
+    public Result<Void>  update(@RequestBody UserUpdateReqDTO userUpdateReqDTO){
         userService.update(userUpdateReqDTO);
         return Results.success();
     }
@@ -87,7 +87,7 @@ public class UserController {
      * 用户注销
      */
     @PostMapping("/logout")
-    public Result logout(@RequestParam("username") String username, @RequestParam("uuid") String uuid){
+    public Result<Void> logout(@RequestParam("username") String username, @RequestParam("uuid") String uuid){
         userService.logout(username, uuid);
         return Results.success();
     }
