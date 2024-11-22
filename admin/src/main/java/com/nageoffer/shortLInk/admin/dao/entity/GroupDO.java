@@ -1,5 +1,7 @@
 package com.nageoffer.shortlink.admin.dao.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nageoffer.shortlink.admin.common.datbase.BaseDO;
 import lombok.*;
@@ -30,5 +32,6 @@ public class GroupDO extends BaseDO {
     /**
      * 分组排序
      * */
+    @TableField(fill = FieldFill.INSERT)
     private Integer sortOrder;
 }
