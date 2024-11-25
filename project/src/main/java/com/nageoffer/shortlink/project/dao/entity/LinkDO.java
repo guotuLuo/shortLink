@@ -2,14 +2,16 @@ package com.nageoffer.shortlink.project.dao.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nageoffer.shortlink.project.common.datbase.BaseDO;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("t_link")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class LinkDO extends BaseDO {
     /**
      * 短链接id

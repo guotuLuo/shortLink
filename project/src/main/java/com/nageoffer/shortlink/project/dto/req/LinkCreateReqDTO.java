@@ -32,7 +32,7 @@ public class LinkCreateReqDTO {
      * 有效期
      * */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime validTime;
+    private LocalDateTime validDate;
     /**
      * 描述
      */
