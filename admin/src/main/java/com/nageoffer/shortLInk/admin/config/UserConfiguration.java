@@ -16,7 +16,6 @@ public class UserConfiguration {
         FilterRegistrationBean<UserTransmitFilter> globalUserTransMitFilter = new FilterRegistrationBean<>();
         globalUserTransMitFilter.setFilter(new UserTransmitFilter(stringRedisTemplate));
         globalUserTransMitFilter.addUrlPatterns("/*");
-        globalUserTransMitFilter.addInitParameter("excludeUrl", "/api/shortlink/v1/user/login");
         globalUserTransMitFilter.setOrder(0);
         return globalUserTransMitFilter;
     }
