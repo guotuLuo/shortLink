@@ -1,7 +1,9 @@
 package com.nageoffer.shortlink.project.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.text.StrBuilder;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mchange.util.DuplicateElementException;
@@ -9,7 +11,9 @@ import com.nageoffer.shortlink.project.common.convention.exception.ServiceExcept
 import com.nageoffer.shortlink.project.dao.entity.LinkDO;
 import com.nageoffer.shortlink.project.dao.mapper.LinkMapper;
 import com.nageoffer.shortlink.project.dto.req.LinkCreateReqDTO;
+import com.nageoffer.shortlink.project.dto.req.LinkPageReqDTO;
 import com.nageoffer.shortlink.project.dto.resp.LinkCreateRespDTO;
+import com.nageoffer.shortlink.project.dto.resp.LinkPageRespDTO;
 import com.nageoffer.shortlink.project.service.LinkService;
 import com.nageoffer.shortlink.project.toolkit.HashUtil;
 import lombok.RequiredArgsConstructor;
@@ -81,5 +85,18 @@ public class LinkServiceImpl extends ServiceImpl<LinkMapper, LinkDO> implements 
             generateCount++;
         }
         return shortLinkSuffix;
+    }
+
+    @Override
+    public IPage<LinkPageRespDTO> pageQuery(LinkPageReqDTO linkPageReqDTO) {
+        LambdaQueryWrapper<LinkDO> pageQuery = Wrappers.lambdaQuery(LinkDO.class)
+                .eq(LinkDO::getGid, linkPageReqDTO.getGid())
+                .eq(LinkDO::getDelFlag, 0)
+                .eq(LinkDO::getEnableStatus, 0);
+        if(pageQuery == null){
+            System.out.println("kkkkkkkkkkkkkkk");
+        }
+        IPage<LinkDO> linkPageResult = baseMapper.selectPage(linkPageReqDTO, pageQuery);
+        return linkPageResult.convert(each -> BeanUtil.toBean(each, LinkPageRespDTO.class));
     }
 }

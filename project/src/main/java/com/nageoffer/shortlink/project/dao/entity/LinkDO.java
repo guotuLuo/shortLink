@@ -61,4 +61,8 @@ public class LinkDO extends BaseDO {
      * 描述
      */
     private String description;
+    /**
+     * 图标url
+     * */
+    private String favicon;
 }

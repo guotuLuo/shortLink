@@ -1,29 +1,39 @@
-package com.nageoffer.shortlink.project.dto.req;
+package com.nageoffer.shortlink.project.dto.resp;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-
-public class LinkCreateReqDTO {
+public class LinkPageRespDTO {
+    /**
+     * 短链接id
+     * */
+    private Long id;
     /**
      * 短链接域名
      * */
     private String domain;
     /**
+     * 短链接资源
+     * */
+    private String shortUri;
+    /**
+     * 短链接
+     * */
+    private String fullShortUrl;
+    /**
      * 原始连接
      * */
     private String originUrl;
     /**
+     * 点击量
+     * */
+    private Integer clickNum;
+    /**
      * 短链接分组id
      * */
     private String gid;
-    /**
-     * 创建类型 0：控制台 1：接口
-     * */
-    private Integer createdType;
     /**
      * 有效期类型 0：永久有效 1：用户自定义
      * */
@@ -31,14 +41,13 @@ public class LinkCreateReqDTO {
     /**
      * 有效期
      * */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime validDate;
     /**
      * 描述
      */
     private String description;
     /**
-     * 图片url
+     * 图标url
      * */
     private String favicon;
 }
