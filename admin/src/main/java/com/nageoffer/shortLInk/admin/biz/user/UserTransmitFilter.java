@@ -21,7 +21,9 @@ public class UserTransmitFilter implements Filter {
     private static final List<String> excludeUrls = Lists.newArrayList(
             "/api/shortlink/admin/v1/user/register",
             "/api/shortlink/admin/v1/user/login",
-            "/api/shortlink/admin/v1/user/has-login"
+            "/api/shortlink/admin/v1/user/has-login",
+            "/api/shortlink/project/v1/admin/page",
+            "/api/shortlink/project/v1/admin/create"
     );
 
     @Override
